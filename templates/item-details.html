@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+  <!--suppress HtmlRequiredAltAttribute -->
+<main>
+    {% block content %}
+    <div class="item-details-hero">
+      <div style="width: 1250px;" class="item-image-container">
+        {% for image in images %}
+            <img class="item-image" src="{{ image.image_url }}">
+        {% endfor %}
+        
+      </div>
+      <div class="item-details-desc">
+        <h5>{{ object.title }}</h5>
+        <p>${{ object.price }}</p>
+        <button class="size-button">Small</button>
+        <button class="size-button">Medium</button>
+        <button class="size-button">Large</button>
+        <button class="size-button">XL</button>
+        <button class="shop-now" style="width: 100%; padding: 0.7rem; margin-top: 0.7rem;">Add to cart</button>
+        <p style="margin-top: 1rem;">{{ object.description }}</p>
+        <p style="margin-top: 2rem;">INTERNATIONAL CUSTOMERS: If your order includes a product that is ONLY available in our U.S. warehouse, the entire order will ship from the U.S. Please note that international shipments may be subject to import taxes</p>
+        <p style="margin-top: 2rem;"><i  style="margin-right: 0.5rem" class="fa-solid fa-truck"></i>Standard delivery date is about 5 business days or less depending on your location.</p>
+      </div>
+    </div>
+
+    <div class="marquee">
+      <span>✔️ Up to 70% OFF ✔️ Limited stock — when it’s gone, it’s gone ✔️ Free shipping on orders over $50 🔗 Click. Buy. Save. Smile.</span>
+    </div>
+    {% endblock %}
+  </main>
+

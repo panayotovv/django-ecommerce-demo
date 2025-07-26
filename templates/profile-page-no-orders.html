@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+  <main>
+      {% block content %}
+        <div class="profile-hero">
+          <h1>Hello, {{ user.username }}</h1>
+          <div class="profile-order-section">
+            <h4 style="font-weight: 600;">No orders yet</h4>
+            <h4 style="margin-bottom: 3rem;">Go to store to place an order.</h4>
+          </div>
+        </div>
+      {% endblock %}
+  </main>
+
+

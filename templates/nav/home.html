@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+{% load static %}
+
+  <main>
+  {% block content %}
+    <div class="hero-background">
+      <div class="hero">
+        <h1>Step Into Our Community Of Millions Of</h1>
+        <h1>Athletes Just Like You!</h1>
+          {% if user.is_authenticated %}
+              <a href="{% url 'plans-view' %}">
+                <button>Join Now</button>
+              </a>
+          {% else %}
+            <a href="{% url 'login' %}">
+                <button>Join Now</button>
+            </a>
+          {% endif %}
+      </div>
+    </div>
+    <div class="equipment">
+      <img class="paralletes" src="https://thenx.com/cdn/shop/files/thenx_dip_bars_wooden.webp?v=1741427344&width=960">
+      <div class="desc">
+        <h3>Elevate your calisthenics training with our wooden Dip Bars, engineered for superior stability and performance. These premium dip bars are ideal for advanced exercises such as dips, leg raises, and bodyweight rows, promoting upper body strength and core stability.</h3>
+        <button>
+          <i class="fa-solid fa-cart-shopping two"></i>
+          Add to Cart
+        </button>
+      </div>
+    </div>
+    <div class="equipment">
+      <div class="desc-bar">
+        <h3 class="long-text">Take your calisthenics training to new heights with our Half Bar. Designed for maximum stability and versatility, this premium bar is perfect for advanced exercises like front levers, planches, and back levers, as well as dips and rows. Made from durable, powder-coated steel, it features five adjustable height settings, non-slip rubber feet, and easy assembly. Ideal for indoor and outdoor workouts, the ergonomic design ensures comfort and a secure grip, making it an essential tool for enhancing your strength and skill level in calisthenics.</h3>
+        <h3 class="short-text">Take your calisthenics training to new heights with our Half Bar. Designed for maximum stability and versatility, this premium bar is perfect for advanced exercises like front levers, planches, and back levers, as well as dips and rows. Made from durable, powder-coated steel, it features five adjustable height settings, non-slip rubber feet, and easy assembly.</h3>
+        <h3 class="shorter-text">Take your calisthenics training to new heights with our Half Bar. Designed for maximum stability and versatility, this premium bar is perfect for advanced exercises like front levers, planches, and back levers, as well as dips and rows.</h3>
+        <button>
+          <i class="fa-solid fa-cart-shopping two"></i>
+          Add to Cart
+        </button>
+      </div>
+      <img class="half-bar" src="https://thenx.com/cdn/shop/files/thenx_half_bars_new_668a1fc8-cf36-407c-a5b7-11a16f7f688d.png?v=1718300023&width=960">
+    </div>
+
+    <div class="new-arrivals">
+      <h6>APPAREL</h6>
+      <h1>Men's Apparel</h1>
+        <a href="{% url 'man-shop' %}">
+          <button class="shop-now">Shop Now</button>
+        </a>
+    </div>
+
+    <div class="model-images">
+    {% for item in first_three_man %}
+        <a style="text-decoration: none; color: #333333;" href="{% url 'man-detail' item.pk %}">
+          <div class="model-card">
+            <img class="gornation-tee" src="{{ item.image_url }}">
+            <p class="item-desc">{{ item.title }}</p>
+            <p>${{ item.price }}</p>
+          </div>
+        </a>
+    {% endfor %}
+    </div>
+
+    <div class="new-arrivals">
+      <h6>APPAREL</h6>
+      <h1>Women's Apparel</h1>
+        <a href="{% url 'women-shop' %}">
+            <button class="shop-now">Shop Now</button>
+        </a>
+    </div>
+
+    <div class="model-images">
+    {% for item in first_three_women %}
+    <a style="text-decoration: none; color:#333333 " href="{% url 'women-detail' item.pk %}">
+      <div class="model-card">
+        <img class="gornation-tee" src="{{ item.image_url }}">
+        <p class="item-desc">{{ item.title }}</p>
+        <p>${{ item.price }}</p>
+      </div>
+    </a>
+    {% endfor %}
+    </div>
+
+    <div class="new-arrivals">
+      <h1>Equipment</h1>
+        <a href="{% url 'equipment-shop' %}">
+            <button class="shop-now">Shop Now</button>
+        </a>
+    </div>
+
+    <div class="model-images">
+        {% for item in first_three_eq %}
+            <a style="text-decoration: none; color: #333333;" href="{% url 'equipment-detail' item.pk %}">
+              <div class="model-card">
+                <img class="gornation-tee" src="{{ item.image_url }}">
+                <p class="item-desc">{{ item.title }}</p>
+                <p>${{ item.price }}</p>
+              </div>
+            </a>
+        {% endfor %}
+    </div>
+
+    <div class="planche-pics">
+      <div class="planche-pic">
+        <img src="https://i.ytimg.com/vi/5sWN7Gy3bxs/maxresdefault.jpg">
+        <div class="image-text">Comfort First. Power Always.</div>
+      </div>
+      <div class="planche-pic">
+        <img src="https://i.ytimg.com/vi/4TSLHFz6YUE/maxresdefault.jpg">
+        <div class="image-text">Lightweight. Flexible. Built To Move.</div>
+      </div>
+    </div>
+
+    <div class="marquee">
+      <span>✔️ Up to 70% OFF ✔️ Limited stock — when it’s gone, it’s gone ✔️ Free shipping on orders over $50 🔗 Click. Buy. Save. Smile.</span>
+    </div>
+    {% endblock %}
+  </main>
+
+
+

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+  <main>
+      {% block content %}
+      <div class="hero-plans">
+        <h1>Men's Apparel</h1>
+        <div class="model-images">
+        {% for i in items %}
+        <a style="text-decoration: none;" href="{% url 'man-detail' i.pk%}">
+          <div class="model-card">
+            <img class="gornation-tee" src="{{ i.image_url }}">
+            <p class="item-desc">{{ i.title }}</p>
+            <p style="color: #333333;">${{ i.price }}</p>
+          </div>
+        </a>
+        {% endfor %}
+        </div>
+      </div>
+      {% endblock %}
+  </main>
+
+

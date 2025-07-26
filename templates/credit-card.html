@@ -1,0 +1,79 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BarGrip</title>
+    <link rel="stylesheet" href="{% static 'css/reset.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/typography.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
+</head>
+<body>
+<main>
+    <div class="login-background">
+        <div class="login-container">
+            <form style=" color: white; border: 1px solid black; background-color:#1E1E1E; box-shadow: 0px 4px 12px rgba(0,0,0,0.3)" class="cart-form" method="post">
+              <h1 style="color: white; text-align: center; margin: 0; font-weight: 100; font-size: 2rem;">Payment</h1>
+                <label for="region" class="form-label">Card number</label>
+                <input type="region" id="region" class="form-input">
+                
+                <div class="input-row">
+                    <div class="input-group">
+                        <label for="expiry" class="form-label">Expiration date (MM / YY)</label>
+                        <input type="text" id="expiry" class="form-input">
+                    </div>
+                    <div class="input-group">
+                        <label for="cvv" class="form-label">Security code</label>
+                        <input type="text" id="cvv" class="form-input">
+                    </div>
+                </div>
+
+                <label for="region" class="form-label">Name on card</label>
+                <input type="region" id="region" class="form-input">
+                
+                <div class="button-container">
+                    <button type="submit" class="submit-button" style="background-color: white; color: black;">
+                        <i class="fas fa-credit-card"></i> Pay
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+<footer>
+  <div class="footer-container">
+    <div class="footer-about">
+      <h3>About Us</h3>
+      <p>We are committed to delivering quality services and solutions that meet your needs. Stay connected with us for updates and support.</p>
+    </div>
+    <div class="footer-links">
+      <h3>Quick Links</h3>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Plans</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><a href="#">Support</a></li>
+      </ul>
+    </div>
+    <div class="footer-contact">
+      <h3>Contact</h3>
+      <p>Email: BarGrip@gmail.com</p>
+      <p>Phone: +359 879 12345</p>
+      <p>Address: Maria Luiza Boulevard, Sofia</p>
+    </div>
+    <div class="footer-social">
+      <h3>Follow Us</h3>
+      <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+      <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+      <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    &copy; 2025 BarGrip. All rights reserved.
+  </div>
+</footer>
+</body>
+</html>

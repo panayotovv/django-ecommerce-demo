@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<main>
+    {% block content %}
+        <div class="hero-plans">
+            <h1>Shop</h1>
+            <div class="model-images">
+                <div class="model-card">
+                    <a href="{% url 'women-shop' %}">
+                        <img class="gornation-tee" src="{{ random_obj_women.image_url }}">
+                    </a>
+                    <p class="plan-title">Women's Apparel</p>
+                </div>
+                <div class="model-card">
+                    <a href="{% url 'man-shop' %}">
+                        <img class="gornation-tee" src="{{ random_obj_man.image_url }}">
+                    </a>
+                    <p class="plan-title">Men's Apparel</p>
+                </div>
+                <div class="model-card">
+                    <a href="{% url 'equipment-shop' %}">
+                        <img class="gornation-tee" src="{{ random_obj_eq.image_url }}">
+                    </a>
+                    <p class="plan-title">Equipment</p>
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+</main>
+

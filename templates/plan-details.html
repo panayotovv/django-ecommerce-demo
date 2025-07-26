@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<main>
+    {% block content %}
+    <div class="hero-plans">
+        <div class="plan-section">
+            <h1 style="color: #262626;">{{ object.title }}</h1>
+            <div class="image-container">
+                <img class="plan-image" src="{{ object.image_url }}">
+            </div>
+            <h3 style="color: #262626;">{{ object.subtitle }}</h3>
+            <p class="plan-desc" style="margin: 1rem;">{{ object.description }}</p>
+{#            <p style="font-size: 1.5em; margin: 0.5em; font-weight: 500;">${{ object.price }}</p>#}
+            <button class="shop-now">Add to cart</button>
+        </div>
+    </div>
+    {% endblock %}
+</main>
+

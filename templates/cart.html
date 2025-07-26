@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+  <main>
+  {% block content %}
+    <div class="form-container">
+        <div class="left-cart">
+          <div class="in-your-cart">
+            <h4>Shopping Cart</h4>
+            <img class="cart-image" src="https://www.gornation.com/cdn/shop/files/Performance-Baselayer-Black-2.jpg?v=1730274225&width=1260">
+          </div>
+          <div class="cart-summary">
+            <h4>Summary</h4>
+            <h6>Subtotal: $261</h6>
+            <h6>Taxes: $17.61</h6>
+            <h6>Total: $356</h6>
+          </div>
+        </div>
+        <div class="right-cart">
+            <form class="cart-form" method="post">
+                {% csrf_token %}
+                {{ form }}
+                <a style="text-decoration: none" href="{% url 'checkout-view' %}">
+                    <div class="button-container">
+                        <input type="submit" value="Checkout" class="submit-button">
+                    </div>
+                </a>
+            </form>
+        </div>
+    </div>
+    </div>
+  {% endblock %}
+  </main>
+
+

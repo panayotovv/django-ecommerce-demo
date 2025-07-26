@@ -1,0 +1,86 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BarGrip</title>
+    <link rel="stylesheet" href="{% static 'css/reset.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/typography.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
+</head>
+<body>
+  <header>
+    <nav class="navbar">
+        <a href="{% url 'home-view' %}">
+            <i class="fa-solid fa-person-running"></i>
+        </a>
+      <i class="fa-solid fa-grip-lines"></i>
+      <ul>
+        <li class="home"><a href="{% url 'home-view' %}">Home</a></li>
+        <li class="plans"><a href="{% url 'plans-view' %}">Plans</a></li>
+        <li class="about"><a href="{% url 'about-view' %}">About</a></li>
+        <li class="contact"><a href="{% url 'shop-view' %}">Shop</a></li>
+        <li class="support"><a href="{% url 'support-view' %}">Support</a></li>
+      </ul>
+      <div class="profile-info">
+            {% if user.is_authenticated %}
+                <p style="color:white; position: absolute; right: 10rem;">Hello, {{ user.username }}</p>
+              <a href="{% url 'profile' user.pk %}">
+                <i class="fa-solid fa-user"></i>
+              </a>
+          {% else %}
+              <a href="{% url 'login' %}">
+                  <i class="fa-solid fa-user"></i>
+              </a>
+          {% endif %}
+          <a href="{% url 'cart-view' %}">
+            <i class="fa-solid fa-cart-shopping"></i>
+          </a>
+          <a>
+            <i class="fa-solid fa-bell"></i>
+          </a>
+      </div>
+    </nav>
+  </header>
+  <main>
+      {% block content %}
+      {% endblock %}
+  </main>
+  <footer>
+    <div class="footer-container">
+      <div class="footer-about">
+        <h3>About Us</h3>
+        <p>We are committed to delivering quality services and solutions that meet your needs. Stay connected with us for updates and support.</p>
+      </div>
+      <div class="footer-links">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="{% url 'home-view' %}">Home</a></li>
+          <li><a href="{% url 'plans-view' %}">Plans</a></li>
+          <li><a href="{% url 'about-view' %}">About</a></li>
+          <li><a href="{% url 'shop-view' %}">Shop</a></li>
+          <li><a href="{% url 'support-view' %}">Support</a></li>
+        </ul>
+      </div>
+      <div class="footer-contact">
+        <h3>Contact</h3>
+        <p>Email: BarGrip@gmail.com</p>
+        <p>Phone: +359 879 12345</p>
+        <p>Address: Maria Luiza Boulevard, Sofia</p>
+      </div>
+      <div class="footer-social">
+        <h3>Follow Us</h3>
+        <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2025 BarGrip. All rights reserved.
+    </div>
+  </footer>
+</body>
+</html>
+
