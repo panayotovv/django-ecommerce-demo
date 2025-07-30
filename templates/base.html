@@ -35,9 +35,15 @@
                   <i class="fa-solid fa-user"></i>
               </a>
           {% endif %}
-          <a href="{% url 'cart-view' %}">
-            <i class="fa-solid fa-cart-shopping"></i>
-          </a>
+          {% if user.is_authenticated %}
+              <a href="{% url 'cart-view' %}">
+                <i class="fa-solid fa-cart-shopping"></i>
+              </a>
+          {% else %}
+            <a href="{% url 'login' %}">
+                <i class="fa-solid fa-cart-shopping"></i>
+              </a>
+          {% endif %}
           <a>
             <i class="fa-solid fa-bell"></i>
           </a>

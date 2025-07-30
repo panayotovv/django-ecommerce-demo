@@ -5,13 +5,34 @@
         <div class="left-cart">
           <div class="in-your-cart">
             <h4>Shopping Cart</h4>
-            <img class="cart-image" src="https://www.gornation.com/cdn/shop/files/Performance-Baselayer-Black-2.jpg?v=1730274225&width=1260">
+              {% if cart.items %}
+                  <form method="post" action="{% url 'clear-cart' %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn-clear-cart">Clear Cart</button>
+                  </form>
+                  {% for key, item in cart.items %}
+                      <div style="display: inline-block; padding-right: 2rem; " class="cart-items">
+                        <p style="position: absolute;
+                         color: white;
+                          background-color: #191d14;
+                           padding: 7px;
+                            border-radius: 20px;">{{ item.quantity }}</p>
+                          <a href="{% url 'item-detail' item.category item.pk %}">
+                              <img class="cart-image" src="{{ item.image }}">
+                          </a>
+                        <p style="font-size: 0.9rem">{{ item.name }}</p>
+                        <p>${{ item.price }}</p>
+                      </div>
+                  {% endfor %}
+              {% else %}
+                  <h4 style="border: none">No items</h4>
+              {% endif %}
           </div>
           <div class="cart-summary">
             <h4>Summary</h4>
-            <h6>Subtotal: $261</h6>
-            <h6>Taxes: $17.61</h6>
-            <h6>Total: $356</h6>
+            <h6>Subtotal: ${{ grand_total }}</h6>
+            <h6>Taxes: ${{ tax }}</h6>
+            <h6>Total: ${{ total_after_tax }}</h6>
           </div>
         </div>
         <div class="right-cart">

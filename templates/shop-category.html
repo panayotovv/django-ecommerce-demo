@@ -3,10 +3,10 @@
   <main>
       {% block content %}
       <div class="hero-plans">
-        <h1>Men's Apparel</h1>
+        <h1>{{ category_name | capfirst }}</h1>
         <div class="model-images">
-        {% for i in items %}
-        <a style="text-decoration: none;" href="{% url 'man-detail' i.pk%}">
+        {% for i in products %}
+        <a style="text-decoration: none;" href="{% url 'item-detail' i.category i.pk %}">
           <div class="model-card">
             <img class="gornation-tee" src="{{ i.image_url }}">
             <p class="item-desc">{{ i.title }}</p>

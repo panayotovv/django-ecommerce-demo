@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+  <main>
+      {% block content %}
+          {% if orders %}
+            <div class="profile-hero">
+              <h1>Hello, {{ user.username }}</h1>
+              <div class="profile-order-section">
+                <h4 style="font-size: 1.2rem;">Your orders are on the way!</h4>
+                <img class="green-check-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Eo_circle_green_checkmark.svg/2048px-Eo_circle_green_checkmark.svg.png">
+              </div>
+            </div>
+          {% else %}
+              <div class="profile-hero">
+              <h1>Hello, {{ user.username }}</h1>
+                  <div class="profile-order-section">
+                    <h4 style="font-weight: 600;">No orders yet</h4>
+                    <h4 style="margin-bottom: 3rem;">Go to store to place an order.</h4>
+                  </div>
+              </div>
+          {% endif %}
+      {% endblock %}
+  </main>
+
+

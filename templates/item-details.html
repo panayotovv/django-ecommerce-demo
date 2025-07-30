@@ -3,6 +3,32 @@
 <main>
     {% block content %}
     <div class="item-details-hero">
+        {% if messages %}
+            <div id="popup-message" style="position: fixed; top: 20px; right: 20px; z-index: 9999;">
+                {% for message in messages %}
+                    <div style="
+                        background-color: black;
+                        color: white;
+                        padding: 10px 20px;
+                        margin-bottom: 10px;
+                        margin-top: 4rem;
+                        border-radius: 5px;
+                        box-shadow: 0 0 10px rgba(0,0,0,0.3);
+                    ">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+
+            <script>
+                setTimeout(function() {
+                    const popup = document.getElementById('popup-message');
+                    if (popup) {
+                        popup.style.display = 'none';
+                    }
+                }, 2000);
+            </script>
+        {% endif %}
       <div style="width: 1250px;" class="item-image-container">
         {% for image in images %}
             <img class="item-image" src="{{ image.image_url }}">
@@ -12,11 +38,17 @@
       <div class="item-details-desc">
         <h5>{{ object.title }}</h5>
         <p>${{ object.price }}</p>
-        <button class="size-button">Small</button>
-        <button class="size-button">Medium</button>
-        <button class="size-button">Large</button>
-        <button class="size-button">XL</button>
-        <button class="shop-now" style="width: 100%; padding: 0.7rem; margin-top: 0.7rem;">Add to cart</button>
+          {% if object.category != 'equipment' %}
+            <button class="size-button">Small</button>
+            <button class="size-button">Medium</button>
+            <button class="size-button">Large</button>
+            <button class="size-button">XL</button>
+          {% endif %}
+
+        <form method="post" action="{% url 'add_to_cart' item_id=pk %}">
+            {% csrf_token %}
+            <button class="shop-now" style="width: 100%; margin-top: 1rem" type="submit">Add to cart</button>
+        </form>
         <p style="margin-top: 1rem;">{{ object.description }}</p>
         <p style="margin-top: 2rem;">INTERNATIONAL CUSTOMERS: If your order includes a product that is ONLY available in our U.S. warehouse, the entire order will ship from the U.S. Please note that international shipments may be subject to import taxes</p>
         <p style="margin-top: 2rem;"><i  style="margin-right: 0.5rem" class="fa-solid fa-truck"></i>Standard delivery date is about 5 business days or less depending on your location.</p>

@@ -1,66 +1,43 @@
 from django.views.generic import ListView, DetailView
-from Shop.models import WomenShop, ManShop, EquipmentShop
+from Shop.models import Product
 
-
-class BaseDetailView(DetailView):
+class ProductDetailView(DetailView):
     template_name = 'item-details.html'
+    model = Product
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['pk'] = self.kwargs['pk']
-
-        return context
-
-
-class WomenDetailView(BaseDetailView):
-    model = WomenShop
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['pk'] = self.kwargs['pk']
+        context['category'] = self.model.category
 
         item = self.object
         context['images'] = item.item_images.all()
         return context
 
 
-class ManDetailView(BaseDetailView):
-    model = ManShop
+class ShopCategoryView(ListView):
+    model = Product
+    template_name = 'shop-category.html'
+    context_object_name = 'products'
+
+    def get_queryset(self):
+        category = self.kwargs.get('category')
+        return Product.objects.filter(category=category)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['pk'] = self.kwargs['pk']
+        category_name = self.kwargs.get('category')
+        if category_name != 'equipment':
+            context['category_name'] = f"{category_name}" + "'s Apparel"
+        else:
+            context['category_name'] = category_name
 
-        item = self.object
-        context['images'] = item.item_images_man.all()
-        return context
-
-class EquipmentDetailView(BaseDetailView):
-    model = EquipmentShop
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['pk'] = self.kwargs['pk']
-
-        item = self.object
-        context['images'] = item.item_images_eq.all()
         return context
 
 
-class WomenShopView(ListView):
-    template_name = 'women-shop.html'
-    context_object_name = 'items'
-    model = WomenShop
 
-class ManShopView(ListView):
-    template_name = 'men-shop.html'
-    context_object_name = 'items'
-    model = ManShop
 
-class EquipmentShopView(ListView):
-    template_name = 'equipment-shop.html'
-    context_object_name = 'items'
-    model = EquipmentShop
+
 
 
 

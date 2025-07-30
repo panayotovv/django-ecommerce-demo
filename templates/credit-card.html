@@ -14,25 +14,10 @@
 <main>
     <div class="login-background">
         <div class="login-container">
-            <form style=" color: white; border: 1px solid black; background-color:#1E1E1E; box-shadow: 0px 4px 12px rgba(0,0,0,0.3)" class="cart-form" method="post">
-              <h1 style="color: white; text-align: center; margin: 0; font-weight: 100; font-size: 2rem;">Payment</h1>
-                <label for="region" class="form-label">Card number</label>
-                <input type="region" id="region" class="form-input">
-                
-                <div class="input-row">
-                    <div class="input-group">
-                        <label for="expiry" class="form-label">Expiration date (MM / YY)</label>
-                        <input type="text" id="expiry" class="form-input">
-                    </div>
-                    <div class="input-group">
-                        <label for="cvv" class="form-label">Security code</label>
-                        <input type="text" id="cvv" class="form-input">
-                    </div>
-                </div>
-
-                <label for="region" class="form-label">Name on card</label>
-                <input type="region" id="region" class="form-input">
-                
+             <form action="{% url 'checkout-view' %}" style=" color: white; border: 1px solid black; background-color:#1E1E1E; box-shadow: 0px 4px 12px rgba(0,0,0,0.3)" class="cart-form" method="post">
+              <h1 style="color: white; text-align: center; margin: 0; font-weight: 100; font-size: 2rem;">Checkout</h1>
+                {% csrf_token %}
+                {{ form.as_p }}
                 <div class="button-container">
                     <button type="submit" class="submit-button" style="background-color: white; color: black;">
                         <i class="fas fa-credit-card"></i> Pay

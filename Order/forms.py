@@ -1,38 +1,26 @@
 from django import forms
 
-class CartForm(forms.Form):
-    country = forms.CharField(
-        label="Country/Region",
-        widget=forms.TextInput(attrs={'class': 'form-input'}),
-        help_text="",
-    )
-    full_name = forms.CharField(
-        label="Full name",
-        widget=forms.TextInput(attrs={'class': 'form-input'}),
-        help_text="",
-    )
-    postal_code = forms.CharField(
-        label="Postal code",
-        widget=forms.TextInput(attrs={'class': 'form-input'}),
-        help_text="",
-    )
-    city = forms.CharField(
-        label="City",
-        widget=forms.TextInput(attrs={'class': 'form-input'}),
-        help_text="",
-    )
-    email = forms.CharField(
-        label="Email",
-        widget=forms.TextInput(attrs={'class': 'form-input'}),
-        help_text="",
-    )
-    phone_number = forms.CharField(
-        label="Phone number",
-        widget=forms.TextInput(attrs={'class': 'form-input'}),
-        help_text="",
-    )
-    address = forms.CharField(
-        label="Address",
-        widget=forms.TextInput(attrs={'class': 'form-input'}),
-        help_text="",
-    )
+from Order.models import Order
+
+
+class CartForm(forms.ModelForm):
+    class Meta:
+        model = Order
+        exclude = ['total_price', 'user', 'profile']
+        widgets = {
+            'country': forms.TextInput(attrs={'class': 'form-input'}),
+            'full_name': forms.TextInput(attrs={'class': 'form-input'}),
+            'postal_code': forms.NumberInput(attrs={'class': 'form-input'}),
+            'city': forms.TextInput(attrs={'class': 'form-input'}),
+            'email': forms.EmailInput(attrs={'class': 'form-input'}),
+            'phone_number': forms.NumberInput(attrs={'class': 'form-input'}),
+            'shipping_address': forms.TextInput(attrs={'class': 'form-input'}),
+            'created_at': forms.DateTimeInput(attrs={'class': 'form-input'}),
+            'total_price': forms.NumberInput(attrs={'class': 'form-input'}),
+        }
+
+class CheckoutForm(forms.Form):
+    card_number = forms.CharField(max_length=16, widget=forms.PasswordInput(attrs={'class': 'form-input'}))
+    expiration_date = forms.CharField(max_length=5, widget=forms.TextInput(attrs={'class': 'form-input'}))
+    security_code = forms.CharField(max_length=3, widget=forms.TextInput(attrs={'class': 'form-input'}))
+    name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-input'}))

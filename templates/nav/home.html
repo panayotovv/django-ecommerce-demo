@@ -12,7 +12,7 @@
                 <button>Join Now</button>
               </a>
           {% else %}
-            <a href="{% url 'login' %}">
+            <a href="{% url 'register' %}">
                 <button>Join Now</button>
             </a>
           {% endif %}
@@ -44,14 +44,14 @@
     <div class="new-arrivals">
       <h6>APPAREL</h6>
       <h1>Men's Apparel</h1>
-        <a href="{% url 'man-shop' %}">
+        <a href="{% url 'category-shop' category='men' %}">
           <button class="shop-now">Shop Now</button>
         </a>
     </div>
 
     <div class="model-images">
     {% for item in first_three_man %}
-        <a style="text-decoration: none; color: #333333;" href="{% url 'man-detail' item.pk %}">
+        <a style="text-decoration: none; color: #333333;" href="{% url 'item-detail' item.category item.pk %}">
           <div class="model-card">
             <img class="gornation-tee" src="{{ item.image_url }}">
             <p class="item-desc">{{ item.title }}</p>
@@ -64,14 +64,14 @@
     <div class="new-arrivals">
       <h6>APPAREL</h6>
       <h1>Women's Apparel</h1>
-        <a href="{% url 'women-shop' %}">
+        <a href="{% url 'category-shop' category='women' %}">
             <button class="shop-now">Shop Now</button>
         </a>
     </div>
 
     <div class="model-images">
     {% for item in first_three_women %}
-    <a style="text-decoration: none; color:#333333 " href="{% url 'women-detail' item.pk %}">
+    <a style="text-decoration: none; color:#333333 " href="{% url 'item-detail' item.category item.pk %}">
       <div class="model-card">
         <img class="gornation-tee" src="{{ item.image_url }}">
         <p class="item-desc">{{ item.title }}</p>
@@ -83,14 +83,14 @@
 
     <div class="new-arrivals">
       <h1>Equipment</h1>
-        <a href="{% url 'equipment-shop' %}">
+        <a href="{% url 'category-shop' category='equipment' %}">
             <button class="shop-now">Shop Now</button>
         </a>
     </div>
 
     <div class="model-images">
         {% for item in first_three_eq %}
-            <a style="text-decoration: none; color: #333333;" href="{% url 'equipment-detail' item.pk %}">
+            <a style="text-decoration: none; color: #333333;" href="{% url 'item-detail' item.category item.pk %}">
               <div class="model-card">
                 <img class="gornation-tee" src="{{ item.image_url }}">
                 <p class="item-desc">{{ item.title }}</p>

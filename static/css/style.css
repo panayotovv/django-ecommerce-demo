@@ -11,6 +11,17 @@
     top: 0;
 }
 
+.btn-clear-cart {
+    background-color: #f4f4f4;
+    color: black;
+    padding: 10px 20px;
+    border: 1px solid black;
+    cursor: pointer;
+    border-radius: 50px;
+    margin-bottom: 1.5rem;
+    margin-top: 1rem;
+}
+
 .navbar ul{
     position: absolute;
     right: 31rem;
@@ -331,7 +342,6 @@ footer h3{
 
 .item-details-desc .size-button{
     margin-top: 1rem;
-    margin-bottom: 1rem;
     width: 13%;
     padding: 0.5rem;
     cursor: pointer;
@@ -368,6 +378,7 @@ footer h3{
     border-radius: 8px;
     border-right: 1px solid rgb(169, 169, 169);
     border-left: 1px solid rgb(169, 169, 169);
+    border-bottom: 1px solid rgb(169, 169, 169);
 }
 
 .form-input {
@@ -518,6 +529,7 @@ footer h3{
 .cart-image{
     object-fit: cover;
     width: 100px;
+    height: 150px;
     margin-top: 2rem;
     display: inline;
     cursor: pointer;

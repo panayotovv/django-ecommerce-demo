@@ -11,8 +11,10 @@
             </div>
             <h3 style="color: #262626;">{{ object.subtitle }}</h3>
             <p class="plan-desc" style="margin: 1rem;">{{ object.description }}</p>
-{#            <p style="font-size: 1.5em; margin: 0.5em; font-weight: 500;">${{ object.price }}</p>#}
-            <button class="shop-now">Add to cart</button>
+            <form method="post" action="{% url 'add_to_cart' item_id=pk %}">
+                {% csrf_token %}
+                <button class="shop-now" style="width: 15%; margin-top: 1rem" type="submit">Add to cart</button>
+            </form>
         </div>
     </div>
     {% endblock %}
