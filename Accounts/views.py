@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView
 from Accounts.forms import LoginForm, RegisterForm
@@ -16,6 +16,9 @@ class RegisterView(CreateView):
     template_name = 'registration.html'
     form_class = RegisterForm
     success_url = reverse_lazy('login')
+
+class CustomLogoutView(LogoutView):
+    next_page = reverse_lazy('home-view')
 
 
 class ProfileDetailView(DetailView):

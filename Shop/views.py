@@ -1,4 +1,6 @@
-from django.views.generic import ListView, DetailView
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView, CreateView, DeleteView
+from Common.forms import CreateProduct
 from Shop.models import Product
 
 class ProductDetailView(DetailView):
@@ -8,7 +10,7 @@ class ProductDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['pk'] = self.kwargs['pk']
-        context['category'] = self.model.category
+        context['category'] = self.object.category
 
         item = self.object
         context['images'] = item.item_images.all()
@@ -34,11 +36,15 @@ class ShopCategoryView(ListView):
 
         return context
 
+class ProductCreateView(CreateView):
+    template_name = 'add-item.html'
+    model = Product
+    form_class = CreateProduct
+    success_url = reverse_lazy('shop-view')
 
-
-
-
-
+class ProductDeleteView(DeleteView):
+    model = Product
+    success_url = reverse_lazy('shop-view')
 
 
 

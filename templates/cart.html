@@ -17,9 +17,15 @@
                           background-color: #191d14;
                            padding: 7px;
                             border-radius: 20px;">{{ item.quantity }}</p>
+                          {% if item.model == 'product' %}
                           <a href="{% url 'item-detail' item.category item.pk %}">
                               <img class="cart-image" src="{{ item.image }}">
                           </a>
+                          {% else %}
+                              <a href="{% url 'plans-detail' item.pk %}">
+                              <img class="cart-image" src="{{ item.image }}">
+                          </a>
+                          {% endif %}
                         <p style="font-size: 0.9rem">{{ item.name }}</p>
                         <p>${{ item.price }}</p>
                       </div>

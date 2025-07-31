@@ -5,6 +5,7 @@ from django.views import View
 from django.views.generic import FormView, TemplateView, DetailView
 from Order.forms import CartForm, CheckoutForm
 from Order.models import Order, OrderItem
+from Programs.models import Programs
 from Shop.models import Product
 from django.contrib import messages
 import random
@@ -63,10 +64,15 @@ class CartView(FormView):
 
         return super().form_valid(form)
 
+MODEL_MAPPER = {
+    'product': Product,
+    'program': Programs,
+}
 
 class AddToCartView(LoginRequiredMixin, View):
-    def post(self, request, item_id):
-        product = get_object_or_404(Product, pk=item_id)
+    def post(self, request, model_name, item_id):
+        model_class = MODEL_MAPPER.get(model_name)
+        product = get_object_or_404(model_class, pk=item_id)
         cart = request.session.get('cart', {})
 
         key = f"{product.title}:{product.id}"
@@ -84,7 +90,9 @@ class AddToCartView(LoginRequiredMixin, View):
                 'total_price': product.price,
                 'pk': product.pk,
                 'category': product.category,
+                'model': model_name,
             }
+
         request.session['cart'] = cart
         request.session.modified = True
 

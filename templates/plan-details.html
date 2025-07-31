@@ -4,6 +4,32 @@
 <main>
     {% block content %}
     <div class="hero-plans">
+    {% if messages %}
+            <div id="popup-message" style="position: fixed; top: 20px; right: 20px; z-index: 9999;">
+                {% for message in messages %}
+                    <div style="
+                        background-color: #f7f7f7;
+                        color: black;
+                        padding: 10px 20px;
+                        margin-bottom: 10px;
+                        margin-top: 4rem;
+                        border-radius: 5px;
+                        box-shadow: 0 0 10px rgba(0,0,0,0.3);
+                    ">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+
+            <script>
+                setTimeout(function() {
+                    const popup = document.getElementById('popup-message');
+                    if (popup) {
+                        popup.style.display = 'none';
+                    }
+                }, 1500);
+            </script>
+        {% endif %}
         <div class="plan-section">
             <h1 style="color: #262626;">{{ object.title }}</h1>
             <div class="image-container">
@@ -11,7 +37,7 @@
             </div>
             <h3 style="color: #262626;">{{ object.subtitle }}</h3>
             <p class="plan-desc" style="margin: 1rem;">{{ object.description }}</p>
-            <form method="post" action="{% url 'add_to_cart' item_id=pk %}">
+            <form method="post" action="{% url 'add_to_cart' model_name='program' item_id=pk %}">
                 {% csrf_token %}
                 <button class="shop-now" style="width: 15%; margin-top: 1rem" type="submit">Add to cart</button>
             </form>

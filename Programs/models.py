@@ -7,6 +7,7 @@ class Programs(models.Model):
     price = models.IntegerField()
     image_url = models.URLField()
     image_banner = models.URLField()
+    category = models.CharField(max_length=100)
 
     def __str__(self):
         return self.title
