@@ -2,13 +2,60 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic import FormView, TemplateView, DetailView
+from django.views.generic import FormView
 from Order.forms import CartForm, CheckoutForm
 from Order.models import Order, OrderItem
 from Programs.models import Programs
 from Shop.models import Product
 from django.contrib import messages
 import random
+
+MODEL_MAPPER = {
+    'product': Product,
+    'program': Programs,
+}
+
+class AddToCartView(LoginRequiredMixin, View):
+    def post(self, request, model_name, item_id):
+        model_class = MODEL_MAPPER.get(model_name)
+        product = get_object_or_404(model_class, pk=item_id)
+        size = request.POST.get('size')
+
+        if not size and product.category != 'equipment' and model_name != 'program':
+            messages.error(request, "Please select a size.")
+            return redirect(request.META.get('HTTP_REFERER', '/'))
+
+        cart = request.session.get('cart', {})
+
+        key = f"{product.title}:{product.id}:{size}"
+
+        if key in cart:
+            cart[key]['quantity'] += 1
+            price_per_item = float(cart[key]['price'])
+            cart[key]['total_price'] = price_per_item * cart[key]['quantity']
+        else:
+            cart[key] = {
+                'name': product.title,
+                'price': str(product.price),
+                'image': product.image_url,
+                'quantity': 1,
+                'total_price': product.price,
+                'pk': product.pk,
+                'category': product.category,
+                'model': model_name,
+                'size': size,
+            }
+
+        request.session['cart'] = cart
+        request.session.modified = True
+
+        if product.category == 'equipment' or model_name == 'program':
+            messages.success(request, f"✅ '{product.title}' added to cart!")
+        else:
+            messages.success(request, f"✅ '{product.title}' (Size: {size}) added to cart!")
+
+        return redirect(request.META.get('HTTP_REFERER', '/'))
+
 
 
 class CartView(FormView):
@@ -45,7 +92,8 @@ class CartView(FormView):
             city=form.cleaned_data['city'],
             email=form.cleaned_data['email'],
             phone_number=form.cleaned_data['phone_number'],
-            shipping_address=form.cleaned_data['shipping_address']
+            shipping_address=form.cleaned_data['shipping_address'],
+            total_price=sum(item['total_price'] for item in cart.values())
         )
 
         for item in cart.values():
@@ -63,42 +111,6 @@ class CartView(FormView):
         self.request.session.modified = True
 
         return super().form_valid(form)
-
-MODEL_MAPPER = {
-    'product': Product,
-    'program': Programs,
-}
-
-class AddToCartView(LoginRequiredMixin, View):
-    def post(self, request, model_name, item_id):
-        model_class = MODEL_MAPPER.get(model_name)
-        product = get_object_or_404(model_class, pk=item_id)
-        cart = request.session.get('cart', {})
-
-        key = f"{product.title}:{product.id}"
-
-        if key in cart:
-            cart[key]['quantity'] += 1
-            price_per_item = float(cart[key]['price'])
-            cart[key]['total_price'] = price_per_item * cart[key]['quantity']
-        else:
-            cart[key] = {
-                'name': product.title,
-                'price': str(product.price),
-                'image': product.image_url,
-                'quantity': 1,
-                'total_price': product.price,
-                'pk': product.pk,
-                'category': product.category,
-                'model': model_name,
-            }
-
-        request.session['cart'] = cart
-        request.session.modified = True
-
-        messages.success(request, f"✅ '{product.title}' added to cart!")
-
-        return redirect(request.META.get('HTTP_REFERER', '/'))
 
 
 class ClearCartView(View):

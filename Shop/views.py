@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, DeleteView
 from Common.forms import CreateProduct
@@ -36,15 +37,19 @@ class ShopCategoryView(ListView):
 
         return context
 
-class ProductCreateView(CreateView):
+class ProductCreateView(PermissionRequiredMixin, CreateView):
     template_name = 'add-item.html'
     model = Product
     form_class = CreateProduct
     success_url = reverse_lazy('shop-view')
+    permission_required = 'Shop.create_Product'
 
-class ProductDeleteView(DeleteView):
+
+
+class ProductDeleteView(PermissionRequiredMixin, DeleteView):
     model = Product
     success_url = reverse_lazy('shop-view')
+    permission_required = 'Shop.delete_Product'
 
 
 

@@ -4,12 +4,11 @@ from Accounts.models import Profile
 from Accounts.validators import validate_email
 from Order.validators import validate_phone_number
 from Shop.models import Product
-from django_countries.fields import CountryField
 
 class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_orders')
     profile = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True, blank=True)
-    country = CountryField()
+    country = models.CharField(max_length=100)
     full_name = models.CharField()
     postal_code = models.IntegerField(max_length=10)
     city = models.CharField()
@@ -23,17 +22,10 @@ class Order(models.Model):
         return f"Order #{self.id} by {self.user.username}"
 
 class OrderItem(models.Model):
-    SIZE_CHOICES = [
-        ('small', 'Small'),
-        ('medium', 'Medium'),
-        ('large', 'Large'),
-        ('xl', 'XL')
-    ]
-
     order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='items')
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
     price = models.DecimalField(max_digits=10, decimal_places=2)
-    size = models.CharField(max_length=20, choices=SIZE_CHOICES, null=True, blank=True)
+    size = models.CharField(max_length=20, choices=Product.SIZE_CHOICES, null=True, blank=True)
 
 

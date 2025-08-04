@@ -16,6 +16,7 @@ class CartForm(forms.ModelForm):
             'shipping_address': forms.TextInput(attrs={'class': 'form-input'}),
             'created_at': forms.DateTimeInput(attrs={'class': 'form-input'}),
             'total_price': forms.NumberInput(attrs={'class': 'form-input'}),
+            'size': forms.RadioSelect,
         }
 
 class CheckoutForm(forms.Form):

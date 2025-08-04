@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-  <!--suppress HtmlRequiredAltAttribute -->
 <main>
     {% block content %}
     <div class="item-details-hero">
@@ -43,29 +42,51 @@
         <h5>{{ object.title }}</h5>
         <p>${{ object.price }}</p>
           {% if object.category != 'equipment' %}
-            <button class="size-button">Small</button>
-            <button class="size-button">Medium</button>
-            <button class="size-button">Large</button>
-            <button class="size-button">XL</button>
-          {% endif %}
+            <form  style="margin-top: 0" id="add-to-cart-form" method="post" action="{% url 'add_to_cart' model_name='product' item_id=pk %}">
+                {% csrf_token %}
 
-        <form method="post" action="{% url 'add_to_cart' model_name='product' item_id=pk %}">
-            {% csrf_token %}
-            <button class="shop-now" style="width: 100%; margin-top: 1rem" type="submit">Add to cart</button>
-        </form>
+                <div style="margin-top: 1.5rem">
+                    <input type="radio" id="size-s" name="size" value="S" required>
+                    <label for="size-s" class="size-button">Small</label>
+
+                    <input type="radio" id="size-m" name="size" value="M" required>
+                    <label for="size-m" class="size-button">Medium</label>
+
+                    <input type="radio" id="size-l" name="size" value="L" required>
+                    <label for="size-l" class="size-button">Large</label>
+
+                    <input type="radio" id="size-xl" name="size" value="XL" required>
+                    <label for="size-xl" class="size-button">XL</label>
+                </div>
+
+                <button class="shop-now" style="width: 100%; margin-top: 1rem" type="submit">
+                    Add to cart
+                </button>
+            </form>
+          {% else %}
+              <form id="add-to-cart-form" method="post" action="{% url 'add_to_cart' model_name='product' item_id=pk %}">
+                {% csrf_token %}
+                <button class="shop-now" style="width: 100%; margin-top: 1rem" type="submit">
+                    Add to cart
+                </button>
+              </form>
+          {% endif %}
         <p style="margin-top: 1rem;">{{ object.description }}</p>
         <p style="margin-top: 2rem;">INTERNATIONAL CUSTOMERS: If your order includes a product that is ONLY available in our U.S. warehouse, the entire order will ship from the U.S. Please note that international shipments may be subject to import taxes</p>
         <p style="margin-top: 2rem;"><i  style="margin-right: 0.5rem" class="fa-solid fa-truck"></i>Standard delivery date is about 5 business days or less depending on your location.</p>
-        <div style="display: flex; justify-content: center; align-items: center; width: 100%;">
-           <form method="post" action="{% url 'delete-item' object.pk %}" style="display:inline;">
-                {% csrf_token %}
-                <a href="{% url 'delete-item' object.pk %}">
-                    <button class="shop-now" style="margin-top: 2rem; font-size: 1rem; width: 10rem">
-                        Delete
-                    </button>
-                </a>
-            </form>
-        </div>
+        <p style="margin-top: 2rem;">PLEASE READ: International orders may be subject to customs duty fees which have to be paid before the shipment is released to you . If you're unsure on whether you'll be subject to customs fees, we'd recommend contacting your local customs office for more information before placing your order. We are not responsible for these fees. You will NOT be eligible for an order refund should you decide NOT to pay these fees once your shipment is processed by the Customs department of your country.</p>
+          {% if perms.shop.create_product %}
+            <div style="display: flex; justify-content: center; align-items: center; width: 100%;">
+               <form method="post" action="{% url 'delete-item' object.pk %}" style="display:inline;">
+                    {% csrf_token %}
+                    <a href="{% url 'delete-item' object.pk %}">
+                        <button class="shop-now" style="margin-top: 2rem; font-size: 1rem; width: 10rem">
+                            Delete
+                        </button>
+                    </a>
+                </form>
+            </div>
+          {% endif %}
       </div>
     </div>
 

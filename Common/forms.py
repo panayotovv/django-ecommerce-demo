@@ -4,7 +4,7 @@ from Shop.models import Product
 class CreateProduct(forms.ModelForm):
     class Meta:
         model = Product
-        fields = '__all__'
+        exclude = ['size']
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-input'}),
             'description': forms.Textarea(attrs={'class': 'form-input'}),

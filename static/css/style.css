@@ -356,6 +356,18 @@ h1, h2, h3, h4, h5, h6, p{
     border: 1px solid black;
 }
 
+input[type="radio"] {
+  display: none;
+}
+
+input[type="radio"]:checked + label {
+  background-color: black;
+  color: white;
+  border-color: black;
+}
+
+
+
 .item-details-desc p{
     margin-top: 0.5rem;
 }
@@ -428,6 +440,7 @@ h1, h2, h3, h4, h5, h6, p{
     border-left: 0.5px solid black;
     padding-left: 1rem;
     text-align: center;
+
 }
 
 .login-container{
