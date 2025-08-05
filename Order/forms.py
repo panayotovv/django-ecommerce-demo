@@ -1,5 +1,5 @@
 from django import forms
-from Order.models import Order
+from Order.models import Order, CardDetails
 
 
 class CartForm(forms.ModelForm):
@@ -19,8 +19,15 @@ class CartForm(forms.ModelForm):
             'size': forms.RadioSelect,
         }
 
-class CheckoutForm(forms.Form):
-    card_number = forms.CharField(max_length=16, widget=forms.PasswordInput(attrs={'class': 'form-input'}))
-    expiration_date = forms.CharField(max_length=5, widget=forms.TextInput(attrs={'class': 'form-input'}))
-    security_code = forms.CharField(max_length=3, widget=forms.TextInput(attrs={'class': 'form-input'}))
-    name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-input'}))
+
+class CheckoutForm(forms.ModelForm):
+    class Meta:
+        model = CardDetails
+        exclude = ['order']
+        widgets = {
+            'card_number': forms.PasswordInput(attrs={'class': 'form-input'}),
+            'expiration_date': forms.TextInput(attrs={'class': 'form-input'}),
+            'security_code': forms.TextInput(attrs={'class': 'form-input'}),
+            'name': forms.TextInput(attrs={'class': 'form-input'}),
+        }
+

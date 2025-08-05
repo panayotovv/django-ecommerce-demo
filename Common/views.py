@@ -36,6 +36,5 @@ class ShopView(ListView):
         context['random_obj_eq'] = random.choice(Product.objects.all().filter(category='equipment'))
         return context
 
-
 class SupportView(TemplateView):
     template_name = 'nav/support.html'

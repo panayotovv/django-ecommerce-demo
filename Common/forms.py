@@ -1,4 +1,5 @@
 from django import forms
+from django.core.exceptions import ValidationError
 from Shop.models import Product
 
 class CreateProduct(forms.ModelForm):
@@ -12,5 +13,14 @@ class CreateProduct(forms.ModelForm):
             'image_url': forms.TextInput(attrs={'class': 'form-input'}),
             'category': forms.Select(attrs={'class': 'form-input'}),
         }
+
+    def clean_price(self):
+        price = self.cleaned_data.get('price')
+        if price is not None and price <= 0:
+            raise ValidationError("Price must be greater than zero.")
+        return price
+
+
+
 
 

@@ -4,7 +4,7 @@ from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import FormView
 from Order.forms import CartForm, CheckoutForm
-from Order.models import Order, OrderItem
+from Order.models import Order, OrderItem, CardDetails
 from Programs.models import Programs
 from Shop.models import Product
 from django.contrib import messages
@@ -123,4 +123,19 @@ class CheckoutView(FormView):
     template_name = 'credit-card.html'
     form_class = CheckoutForm
     success_url = reverse_lazy('home-view')
+
+    def form_valid(self, form):
+        order = Order.objects.last()
+
+        CardDetails.objects.create(
+            card_number=form.cleaned_data['card_number'],
+            expiration_date=form.cleaned_data['expiration_date'],
+            security_code=form.cleaned_data['security_code'],
+            name=form.cleaned_data['name'],
+            order=order
+        )
+
+        return super().form_valid(form)
+
+
 

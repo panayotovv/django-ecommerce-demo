@@ -45,7 +45,6 @@ class ProductCreateView(PermissionRequiredMixin, CreateView):
     permission_required = 'Shop.create_Product'
 
 
-
 class ProductDeleteView(PermissionRequiredMixin, DeleteView):
     model = Product
     success_url = reverse_lazy('shop-view')
