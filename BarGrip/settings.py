@@ -9,8 +9,12 @@ https://docs.djangoproject.com/en/5.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
-
+from dotenv import load_dotenv
+import dj_database_url
+import os
 from pathlib import Path
+
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,7 +29,7 @@ SECRET_KEY = 'django-insecure-#9z-h*l%7io+1-^bft=*7_%&t=g1gm3g2g55-nvzrs%-4u0imr
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["django-ecommerce-demo-ugox.onrender.com"]
+ALLOWED_HOSTS = ["django-ecommerce-demo-ugox.onrender.com", '127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -78,16 +82,24 @@ WSGI_APPLICATION = 'BarGrip.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
+#
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql",
+#         "NAME": "examdb",
+#         "USER": "postgres-user",
+#         "PASSWORD": "password",
+#         "HOST": "127.0.0.1",
+#         "PORT": "5432",
+#     }
+# }
+
+load_dotenv()
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "examdb",
-        "USER": "postgres-user",
-        "PASSWORD": "password",
-        "HOST": "127.0.0.1",
-        "PORT": "5432",
-    }
+    'default': dj_database_url.config(
+        default=os.environ.get('DATABASE_URL')
+    )
 }
 
 
