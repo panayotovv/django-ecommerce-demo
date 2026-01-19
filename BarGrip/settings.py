@@ -13,23 +13,25 @@ from dotenv import load_dotenv
 import dj_database_url
 import os
 from pathlib import Path
-
+from decouple import config
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+load_dotenv(BASE_DIR / ".env")
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-#9z-h*l%7io+1-^bft=*7_%&t=g1gm3g2g55-nvzrs%-4u0imr'
+SECRET_KEY = config("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config("DEBUG", cast=bool)
 
-ALLOWED_HOSTS = ["django-ecommerce-demo-ugox.onrender.com", '127.0.0.1', 'localhost']
+
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -82,7 +84,7 @@ WSGI_APPLICATION = 'BarGrip.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
-#
+
 # DATABASES = {
 #     "default": {
 #         "ENGINE": "django.db.backends.postgresql",
@@ -94,13 +96,17 @@ WSGI_APPLICATION = 'BarGrip.wsgi.application'
 #     }
 # }
 
-load_dotenv()
 
 DATABASES = {
-    'default': dj_database_url.config(
-        default=os.environ.get('DATABASE_URL')
+    "default": dj_database_url.config(
+        default=os.getenv("DATABASE_URL"),
+        conn_max_age=600,
+        ssl_require=True
     )
 }
+
+
+
 
 
 # Password validation
